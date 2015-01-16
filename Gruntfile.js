@@ -342,13 +342,15 @@ module.exports = function(grunt) {
 
         // Style tasks
         less: {
-            options: {
-                sourceMap: true,
-                compress: true
-            },
+        options: {
+            compress: true,
+            yuicompress: true,
+            optimization: 2,
+            sourceMap: true,
+        },
             development: {
                 files: {
-                    '<%= yeoman.app %>/styles/main.css': '<%= yeoman.app %>/styles/less/**/*.less'
+                    '<%= yeoman.app %>/styles/app.css': ['<%= yeoman.app %>/styles/less/main.less']
                 }
             }
         },
@@ -436,7 +438,7 @@ module.exports = function(grunt) {
     grunt.registerTask('style', [
         'csscomb',
         'less',
-        'autoprefixer'
+        //'autoprefixer'
     ]);
 
     grunt.registerTask('build', [

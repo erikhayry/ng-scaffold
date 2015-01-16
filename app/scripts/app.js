@@ -40,8 +40,3 @@ angular
 
 
   });
-
-
-service('name', ['', function(){
-  
-}])
