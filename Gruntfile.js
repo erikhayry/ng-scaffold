@@ -146,6 +146,15 @@ module.exports = function(grunt) {
             server: '.tmp'
         },
 
+        mkdir: {
+            e2e: {
+                options: {
+                    mode: '0700',
+                    create: ['.e2e-out']
+                }
+            }
+        },
+
         // Automatically inject Bower components into the app
         wiredep: {
             app: {
@@ -319,9 +328,7 @@ module.exports = function(grunt) {
                 configFile: 'test/config/protractor-conf.js',
                 keepAlive: false, // If false, the grunt process stops when the test fails.
                 noColor: false, // If true, protractor will not use colors in its output.
-                args: {
-                    // Arguments passed to the command
-                }
+                args: {}
             },
 
             e2e: {
@@ -379,6 +386,9 @@ module.exports = function(grunt) {
 
     });
 
+    // utils
+    grunt.loadNpmTasks('grunt-mkdir');
+
     // style
     grunt.loadNpmTasks('grunt-contrib-less');
     grunt.loadNpmTasks('grunt-csscomb');
@@ -419,6 +429,7 @@ module.exports = function(grunt) {
         'style',
         'concurrent:test',
         'connect:test',
+        'mkdir:e2e',
         'protractor'
     ]);
 
