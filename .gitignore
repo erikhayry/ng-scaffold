@@ -4,3 +4,5 @@ dist
 .tmp
 .sass-cache
 bower_components
+.e2e-out/
+.e2e-output.json
