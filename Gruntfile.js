@@ -125,7 +125,7 @@ module.exports = function(grunt) {
             },
             test: {
                 options: {
-                    jshintrc: 'test/.jshintrc'
+                    jshintrc: 'test/config/.jshintrc'
                 },
                 src: ['test/spec/{,*/}*.js']
             }
@@ -308,8 +308,28 @@ module.exports = function(grunt) {
         // Test settings
         karma: {
             unit: {
-                configFile: 'test/karma.conf.js',
+                configFile: 'test/config/karma.conf.js',
                 singleRun: true
+            }
+        },
+
+        // End-to-End test with Protractor
+        protractor: {
+            options: {
+                configFile: 'test/config/protractor-conf.js',
+                keepAlive: false, // If false, the grunt process stops when the test fails.
+                noColor: false, // If true, protractor will not use colors in its output.
+                args: {
+                    // Arguments passed to the command
+                }
+            },
+
+            e2e: {
+                options: {
+                    args: {
+
+                    }
+                }
             }
         },
 
@@ -363,6 +383,9 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-less');
     grunt.loadNpmTasks('grunt-csscomb');
 
+    //test
+    grunt.loadNpmTasks('grunt-protractor-runner');
+
     grunt.registerTask('serve', 'Compile then start a connect web server', function(target) {
         if (target === 'dist') {
             return grunt.task.run(['build', 'connect:dist:keepalive']);
@@ -385,10 +408,18 @@ module.exports = function(grunt) {
 
     grunt.registerTask('test', [
         'clean:server',
-        'concurrent:test',
         'style',
+        'concurrent:test',
         'connect:test',
         'karma'
+    ]);
+
+    grunt.registerTask('test-e2e', [
+        'clean:server',
+        'style',
+        'concurrent:test',
+        'connect:test',
+        'protractor'
     ]);
 
     grunt.registerTask('style', [

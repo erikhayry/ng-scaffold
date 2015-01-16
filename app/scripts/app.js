@@ -40,3 +40,8 @@ angular
 
 
   });
+
+
+service('name', ['', function(){
+  
+}])
